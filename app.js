@@ -283,7 +283,7 @@
 
   function renderShareActions() {
     const container = $("#share-actions");
-    const pageUrl = window.location.href;
+    const pageUrl = data.links.public;
     const shareText = data.share.text;
     container.replaceChildren();
 
@@ -328,7 +328,7 @@
 
   async function copyForNetwork(network) {
     try {
-      await navigator.clipboard.writeText(`${data.share.text} ${window.location.href}`);
+      await navigator.clipboard.writeText(`${data.share.text} ${data.links.public}`);
       showStatus(data.share.copiedForNetwork.replace("{network}", network));
     } catch {
       showStatus(data.share.copyFailed);
@@ -337,7 +337,7 @@
 
   async function copyPageLink() {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(data.links.public);
       showStatus(data.share.copied);
     } catch {
       showStatus(data.share.copyFailed);

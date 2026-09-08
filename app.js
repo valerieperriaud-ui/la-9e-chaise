@@ -16,8 +16,12 @@
     step: 0,
     answers: [],
     feedback: "",
-    inReaction: false
+    inReaction: false,
+    analyticsReady: false,
+    completionTracked: false
   };
+
+  const consentKey = "la-9e-chaise-analytics-consent";
 
   const setText = (selector, value) => {
     const element = $(selector);
@@ -50,6 +54,52 @@
     return button;
   }
 
+  function loadAnalytics() {
+    const measurementId = data.analytics?.measurementId;
+    if (!measurementId || state.analyticsReady) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag("js", new Date());
+    window.gtag("config", measurementId);
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+    document.head.append(script);
+    state.analyticsReady = true;
+  }
+
+  function trackEvent(name) {
+    if (!state.analyticsReady || typeof window.gtag !== "function") return;
+    window.gtag("event", name);
+  }
+
+  function renderAnalyticsConsent() {
+    const panel = $("#analytics-consent");
+    if (!panel || !data.analytics?.measurementId) return;
+
+    setText("#analytics-consent-title", data.analytics.title);
+    setText("#analytics-consent-text", data.analytics.text);
+    setText("#analytics-accept", data.analytics.accept);
+    setText("#analytics-refuse", data.analytics.refuse);
+
+    const consent = localStorage.getItem(consentKey);
+    if (consent === "granted") {
+      loadAnalytics();
+      return;
+    }
+    if (consent !== "denied") panel.hidden = false;
+  }
+
+  function setAnalyticsConsent(value) {
+    localStorage.setItem(consentKey, value);
+    $("#analytics-consent").hidden = true;
+    if (value === "granted") loadAnalytics();
+  }
+
   function renderIntro() {
     setText("#app-name", data.intro.appName);
     setText("#intro-title", data.intro.title);
@@ -61,6 +111,8 @@
       state.answers = [];
       state.feedback = "";
       state.inReaction = false;
+      state.completionTracked = false;
+      trackEvent("experience_start");
       renderStep();
       setScreen("conversation");
       setTimeout(() => $("#choices button")?.focus(), 150);
@@ -214,6 +266,10 @@
   }
 
   function showFinalScreen() {
+    if (!state.completionTracked) {
+      trackEvent("experience_complete");
+      state.completionTracked = true;
+    }
     renderFinal();
     setScreen("final");
     setTimeout(() => $("#final-actions a, #final-actions button")?.focus(), 180);
@@ -272,6 +328,9 @@
         if (!href.startsWith("mailto:")) {
           link.target = "_blank";
           link.rel = "noopener noreferrer";
+        }
+        if (action.link === "amazon") {
+          link.addEventListener("click", () => trackEvent("amazon_click"));
         }
         link.textContent = action.label;
         container.append(link);
@@ -364,7 +423,10 @@
   $("#feedback-skip").addEventListener("click", showFinalScreen);
   $("#feedback-back").addEventListener("click", returnToLastQuestion);
   $("#review-questions").addEventListener("click", returnToLastQuestion);
+  $("#analytics-accept").addEventListener("click", () => setAnalyticsConsent("granted"));
+  $("#analytics-refuse").addEventListener("click", () => setAnalyticsConsent("denied"));
 
   renderIntro();
+  renderAnalyticsConsent();
   setScreen("intro");
 })();

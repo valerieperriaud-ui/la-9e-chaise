@@ -7,9 +7,9 @@
   <meta name="description" content="Une micro-expérience narrative inspirée du roman Moi, après les autres.">
   <link rel="canonical" href="https://valerieperriaud-ui.github.io/la-9e-chaise/">
   <title>La 9e chaise</title>
-  <link rel="stylesheet" href="styles.css?v=3">
-  <script src="content.js?v=3" defer></script>
-  <script src="app.js?v=3" defer></script>
+  <link rel="stylesheet" href="styles.css?v=4">
+  <script src="content.js?v=4" defer></script>
+  <script src="app.js?v=4" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#experience">Aller à l’expérience</a>
@@ -110,15 +110,13 @@
     </section>
   </main>
 
-  <aside id="analytics-consent" class="analytics-consent" hidden aria-labelledby="analytics-consent-title">
-    <div class="analytics-consent__copy">
-      <p id="analytics-consent-title" class="analytics-consent__title"></p>
-      <p id="analytics-consent-text" class="analytics-consent__text"></p>
-    </div>
-    <div class="analytics-consent__actions">
-      <button id="analytics-refuse" class="text-button analytics-consent__refuse" type="button"></button>
-      <button id="analytics-accept" class="pebble-button pebble-button--small" type="button"></button>
-    </div>
+  <aside id="analytics-consent" class="analytics-consent" hidden aria-label="Choix des statistiques">
+    <label class="analytics-consent__choice" for="analytics-choice">
+      <input id="analytics-choice" type="checkbox">
+      <span id="analytics-consent-label"></span>
+    </label>
+    <span id="analytics-consent-text" class="analytics-consent__text"></span>
+    <button id="analytics-save" class="analytics-consent__save" type="button"></button>
   </aside>
 </body>
 </html>

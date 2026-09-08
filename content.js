@@ -187,6 +187,14 @@ window.content = {
     session: "mailto:metadeclic@gmail.com"
   },
 
+  analytics: {
+    measurementId: "G-0T9QWKZ39C",
+    title: "Statistiques d’utilisation",
+    text: "Acceptez-vous de nous aider à mesurer l’utilisation de cette expérience ? Vos choix et vos réponses écrites ne sont jamais transmis.",
+    accept: "Autoriser les statistiques",
+    refuse: "Continuer sans statistiques"
+  },
+
   share: {
     title: "Sinon, à qui laisseriez-vous la place ?",
     text: "Je viens de prendre place quelques minutes dans le cercle de La 9e chaise.",

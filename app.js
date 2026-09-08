@@ -81,10 +81,9 @@
     const panel = $("#analytics-consent");
     if (!panel || !data.analytics?.measurementId) return;
 
-    setText("#analytics-consent-title", data.analytics.title);
+    setText("#analytics-consent-label", data.analytics.label);
     setText("#analytics-consent-text", data.analytics.text);
-    setText("#analytics-accept", data.analytics.accept);
-    setText("#analytics-refuse", data.analytics.refuse);
+    setText("#analytics-save", data.analytics.save);
 
     const consent = localStorage.getItem(consentKey);
     if (consent === "granted") {
@@ -423,8 +422,9 @@
   $("#feedback-skip").addEventListener("click", showFinalScreen);
   $("#feedback-back").addEventListener("click", returnToLastQuestion);
   $("#review-questions").addEventListener("click", returnToLastQuestion);
-  $("#analytics-accept").addEventListener("click", () => setAnalyticsConsent("granted"));
-  $("#analytics-refuse").addEventListener("click", () => setAnalyticsConsent("denied"));
+  $("#analytics-save").addEventListener("click", () => {
+    setAnalyticsConsent($("#analytics-choice").checked ? "granted" : "denied");
+  });
 
   renderIntro();
   renderAnalyticsConsent();

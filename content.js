@@ -181,6 +181,7 @@ window.content = {
   },
 
   links: {
+    public: "https://valerieperriaud-ui.github.io/la-9e-chaise/",
     amazon: "https://www.amazon.fr/Moi-apr%C3%A8s-autres-sadapter-comment/dp/B0HG614Q2G/ref=tmm_pap_swatch_0",
     circle: "https://valerie-perriaud.systeme.io/resaetpaiementducercle",
     session: "mailto:metadeclic@gmail.com"

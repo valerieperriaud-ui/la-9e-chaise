@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2E5D7">
+  <meta name="description" content="Une micro-expérience narrative inspirée du roman Moi, après les autres.">
+  <title>La 9e chaise</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="content.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#experience">Aller à l’expérience</a>
+
+  <main id="experience" class="experience" tabindex="-1">
+    <section id="intro-screen" class="screen screen--intro" aria-labelledby="intro-title">
+      <div class="intro-visual" aria-hidden="true">
+        <img src="assets/intro-chair-circle.webp" alt="">
+        <span class="intro-visual__veil"></span>
+      </div>
+
+      <div class="intro-copy">
+        <p class="eyebrow" id="app-name"></p>
+        <h1 id="intro-title"></h1>
+        <p id="intro-text" class="intro-text"></p>
+        <button id="start-button" class="pebble-button pebble-button--primary" type="button"></button>
+        <p id="privacy-note" class="privacy-note"></p>
+      </div>
+    </section>
+
+    <section id="conversation-screen" class="screen screen--conversation" hidden aria-labelledby="speaker-name">
+      <div class="conversation-stage">
+        <div class="conversation-back-row">
+          <button id="back-button" class="back-button" type="button" hidden></button>
+        </div>
+
+        <div class="speaker-area">
+          <div id="speaker-portrait" class="portrait portrait--speaker" role="img"></div>
+          <div class="speaker-label">
+            <span class="speaker-label__line" aria-hidden="true"></span>
+            <h2 id="speaker-name"></h2>
+          </div>
+        </div>
+
+        <div id="dialogue-panel" class="dialogue-panel" aria-live="polite">
+          <p id="progress" class="progress" aria-label="Progression"></p>
+          <blockquote id="speaker-line" class="speaker-line"></blockquote>
+          <p id="speaker-question" class="speaker-question"></p>
+
+          <div id="choices" class="choices" aria-label="Vos réponses"></div>
+
+          <div id="custom-answer" class="custom-answer" hidden>
+            <label id="custom-label" for="custom-text"></label>
+            <textarea id="custom-text" rows="3" maxlength="280"></textarea>
+            <div class="custom-answer__actions">
+              <button id="custom-cancel" class="text-button" type="button"></button>
+              <button id="custom-submit" class="pebble-button pebble-button--small" type="button"></button>
+            </div>
+          </div>
+        </div>
+
+        <div id="reaction-panel" class="reaction-panel" hidden aria-live="polite">
+          <div id="reaction-portrait" class="portrait portrait--reaction" role="img"></div>
+          <div class="reaction-copy">
+            <p id="reaction-name" class="reaction-name"></p>
+            <p id="reaction-text" class="reaction-text"></p>
+          </div>
+          <button id="continue-button" class="pebble-button pebble-button--choice" type="button"></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="feedback-screen" class="screen screen--feedback" hidden aria-labelledby="feedback-question">
+      <div class="feedback-card">
+        <p id="feedback-eyebrow" class="eyebrow"></p>
+        <p id="feedback-name" class="feedback-name"></p>
+        <h2 id="feedback-question"></h2>
+        <label id="feedback-label" for="feedback-text"></label>
+        <textarea id="feedback-text" rows="5" maxlength="1200"></textarea>
+        <p id="feedback-privacy" class="feedback-privacy"></p>
+        <div class="feedback-actions">
+          <button id="feedback-send" class="pebble-button pebble-button--primary" type="button" disabled></button>
+          <button id="feedback-skip" class="text-button" type="button"></button>
+          <button id="feedback-back" class="text-button" type="button"></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="final-screen" class="screen screen--final" hidden aria-labelledby="final-title">
+      <div class="final-circle" aria-hidden="true">
+        <img src="assets/intro-chair-circle.webp" alt="">
+      </div>
+
+      <div class="final-copy">
+        <p class="eyebrow" id="final-eyebrow"></p>
+        <h2 id="final-title"></h2>
+        <p id="final-reflection" class="final-reflection"></p>
+
+        <div id="final-actions" class="final-actions"></div>
+        <button id="review-questions" class="text-button final-review" type="button"></button>
+
+        <div class="share-area">
+          <p id="share-title" class="share-title"></p>
+          <div id="share-actions" class="share-actions"></div>
+          <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+
